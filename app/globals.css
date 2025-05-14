@@ -1,9 +1,17 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
 @plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
+body {
+  font-family: "Inter", sans-serif;
+}
+
+:root {
+  --radius: 8px;
+}
 @theme {
   --color-primary-100: #fff1e6;
   --color-primary-500: #ff7000;
