@@ -43,17 +43,17 @@ const MobileNavigation = () => {
           </p>
         </Link>
 
-        <div className="no-scrollbar flex h-[calc(100vh-80px)] flex-col justify-between overflow-y-auto">
+        <div className="no-scrollbar flex h-full flex-col justify-between overflow-y-auto py-6">
           <SheetClose asChild>
-            <section className="flex h-full flex-col gap-6 pt-5">
+            <section className="flex h-full flex-col gap-2 pt-2">
               <NavLinks isMobileNav />
             </section>
           </SheetClose>
 
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 mt-5 pt-5">
             <SheetClose asChild>
               <Link href={ROUTES.SIGN_IN}>
-                <Button className="small-medium btn-secondary min-h-[41px] w-full rounded-lg px-4 py-3 shadow-none">
+                <Button className="small-medium btn-secondary min-h-[41px] w-full rounded-lg p-6 shadow-none">
                   <span className="primary-text-gradient">Log In</span>
                 </Button>
               </Link>
@@ -61,7 +61,10 @@ const MobileNavigation = () => {
 
             <SheetClose asChild>
               <Link href={ROUTES.SIGN_UP}>
-                <Button className="small-medium light-border-2 btn-tertiary text-dark400_light900 min-h-[41px] w-full rounded-lg border px-4 py-3 shadow-none">
+                <Button
+                  className="small-medium light-border-2 btn-tertiary text-dark400_light900
+                 min-h-[41px] w-full rounded-lg border p-6 shadow-none"
+                >
                   Sign Up
                 </Button>
               </Link>
