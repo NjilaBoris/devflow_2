@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   DefaultValues,
   FieldValues,
@@ -9,6 +10,7 @@ import {
   SubmitHandler,
   useForm,
 } from "react-hook-form";
+import { toast } from "sonner";
 import { z, ZodType } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -26,7 +28,7 @@ import ROUTES from "@/constants/routes";
 interface AuthFormProps<T extends FieldValues> {
   schema: ZodType<T>;
   defaultValues: T;
-  onSubmit: (data: T) => Promise<{ success: boolean }>;
+  onSubmit: (data: T) => Promise<ActionResponse>;
   formType: "SIGN_IN" | "SIGN_UP";
 }
 
@@ -36,13 +38,40 @@ const AuthForm = <T extends FieldValues>({
   formType,
   onSubmit,
 }: AuthFormProps<T>) => {
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: defaultValues as DefaultValues<T>,
   });
 
-  const handleSubmit: SubmitHandler<T> = async () => {
-    // TODO: Authenticate User
+  const handleSubmit: SubmitHandler<T> = async (data) => {
+    const result = (await onSubmit(data)) as ActionResponse;
+
+    if (result?.success) {
+      toast.success("Success", {
+        description:
+          formType === "SIGN_IN"
+            ? "Signed in successfully"
+            : "Signed up successfully",
+        style: {
+          backgroundColor: "#24a148",
+          color: "#fff",
+          border: "1px solid #24a148",
+        },
+      });
+
+      router.push(ROUTES.HOME);
+    } else {
+      toast.error(`Error ${result?.status}`, {
+        description: result?.error?.message,
+        style: {
+          backgroundColor: "#f8d7da",
+          color: "#721c24",
+          border: "1px solid #f5c6cb",
+        },
+      });
+    }
   };
 
   const buttonText = formType === "SIGN_IN" ? "Sign In" : "Sign Up";
@@ -73,7 +102,7 @@ const AuthForm = <T extends FieldValues>({
                     className="paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 no-focus min-h-12 rounded-1.5 border"
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-600" />
               </FormItem>
             )}
           />
@@ -81,8 +110,7 @@ const AuthForm = <T extends FieldValues>({
 
         <Button
           disabled={form.formState.isSubmitting}
-          className="primary-gradient paragraph-medium min-h-12 w-full rounded-2 px-4 py-3 
-          font-inter !text-light-900 cursor-pointer"
+          className="primary-gradient cursor-pointer paragraph-medium min-h-12 w-full rounded-2 px-4 py-3 font-inter !text-light-900"
         >
           {form.formState.isSubmitting
             ? buttonText === "Sign In"
@@ -93,7 +121,7 @@ const AuthForm = <T extends FieldValues>({
 
         {formType === "SIGN_IN" ? (
           <p>
-            Don&#39;t have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link
               href={ROUTES.SIGN_UP}
               className="paragraph-semibold primary-text-gradient"
