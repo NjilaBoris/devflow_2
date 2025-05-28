@@ -8,6 +8,7 @@ interface SignInWithOAuthParams {
     username: string;
   };
 }
+
 interface AuthCredentials {
   name: string;
   username: string;
@@ -20,6 +21,7 @@ interface CreateQuestionParams {
   content: string;
   tags: string[];
 }
+
 interface EditQuestionParams extends CreateQuestionParams {
   questionId: string;
 }
@@ -27,6 +29,11 @@ interface EditQuestionParams extends CreateQuestionParams {
 interface GetQuestionParams {
   questionId: string;
 }
+
 interface GetTagQuestionsParams extends Omit<PaginatedSearchParams, "filter"> {
   tagId: string;
+}
+
+interface IncrementViewsParams {
+  questionId: string;
 }
