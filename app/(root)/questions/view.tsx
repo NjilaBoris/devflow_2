@@ -11,7 +11,7 @@ const View = ({ questionId }: { questionId: string }) => {
 
     if (result.success) {
       toast.success("Success", {
-        description: "Question updated Successfully",
+        description: "Views incremented",
         style: {
           backgroundColor: "#24a148",
           color: "#fff",
