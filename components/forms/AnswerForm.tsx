@@ -102,6 +102,7 @@ const AnswerForm = ({ questionId, questionTitle, questionContent }: Props) => {
       if (!success) {
         return toast.error("Error", {
           description: error?.message,
+          descriptionClassName: `${error?.message ? "text-[#721c24]!" : "text-black!"}`,
           style: {
             backgroundColor: "#f8d7da",
             color: "#721c24",
