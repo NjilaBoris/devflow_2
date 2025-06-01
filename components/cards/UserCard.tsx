@@ -6,12 +6,15 @@ import UserAvatar from "../UserAvatar";
 
 const UserCard = ({ _id, name, image, username }: User) => (
   <div className="shadow-light100_darknone w-full xs:w-[230px]">
-    <article className="background-light900_dark200 light-border flex w-full flex-col items-center justify-center rounded-2xl border p-4">
+    <article
+      className="background-light900_dark200 light-border  flex w-full flex-col items-center
+     justify-center rounded-2xl border p-3 m-auto"
+    >
       <UserAvatar
         id={_id}
         name={name}
         imageUrl={image}
-        className="size-[70px] rounded-full object-cover"
+        className="size-[60px] rounded-full object-cover"
         fallbackClassName="text-3xl tracking-widest"
       />
 
