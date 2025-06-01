@@ -134,6 +134,7 @@ const AnswerForm = ({ questionId, questionTitle, questionContent }: Props) => {
           error instanceof Error
             ? error.message
             : "There was a problem with your request",
+        descriptionClassName: `${error ? "text-[#721c24]!" : "text-black!"}`,
         style: {
           backgroundColor: "#f8d7da",
           color: "#721c24",
