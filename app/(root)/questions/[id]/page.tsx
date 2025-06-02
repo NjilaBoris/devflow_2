@@ -18,23 +18,28 @@ import { getQuestion, incrementViews } from "@/lib/actions/question.action";
 import { hasVoted } from "@/lib/actions/vote.action";
 import { formatNumber, getTimeStamp } from "@/lib/utils";
 
-const QuestionDetails = async ({ params }: RouteParams) => {
+const QuestionDetails = async ({ params, searchParams }: RouteParams) => {
   const { id } = await params;
+  const { page, pageSize, filter } = await searchParams;
   const { success, data: question } = await getQuestion({ questionId: id });
+
   after(async () => {
     await incrementViews({ questionId: id });
   });
+
   if (!success || !question) return redirect("/404");
+
   const {
     success: areAnswersLoaded,
     data: answersResult,
     error: answersError,
   } = await getAnswers({
     questionId: id,
-    page: 1,
-    pageSize: 10,
-    filter: "latest",
+    page: Number(page) || 1,
+    pageSize: Number(pageSize) || 10,
+    filter,
   });
+
   const hasVotedPromise = hasVoted({
     targetId: question._id,
     targetType: "question",
@@ -64,16 +69,17 @@ const QuestionDetails = async ({ params }: RouteParams) => {
             </Link>
           </div>
 
-          <div className="flex justify-end items-center gap-4">
-            <Suspense fallback={<div>loading...</div>}>
+          <div className="flex items-center justify-end gap-4">
+            <Suspense fallback={<div>Loading...</div>}>
               <Votes
-                upvotes={question.upvotes}
-                targetId={question._id}
                 targetType="question"
+                upvotes={question.upvotes}
                 downvotes={question.downvotes}
+                targetId={question._id}
                 hasVotedPromise={hasVotedPromise}
               />
             </Suspense>
+
             <Suspense fallback={<div>Loading...</div>}>
               <SaveQuestion
                 questionId={question._id}
@@ -124,6 +130,7 @@ const QuestionDetails = async ({ params }: RouteParams) => {
           />
         ))}
       </div>
+
       <section className="my-5">
         <AllAnswers
           data={answersResult?.answers}
