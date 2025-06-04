@@ -7,6 +7,7 @@ import { after } from "next/server";
 import { Answer, Question } from "@/database";
 import Vote from "@/database/vote.model";
 
+import { createInteraction } from "./interaction.action";
 import action from "../handlers/action";
 import handleError from "../handlers/error";
 import {
@@ -14,7 +15,6 @@ import {
   CreateVoteSchema,
   HasVotedSchema,
 } from "../validation";
-import { createInteraction } from "./interaction.action";
 
 async function updateVoteCount(
   params: UpdateVoteCountParams,
