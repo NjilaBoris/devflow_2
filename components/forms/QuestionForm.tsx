@@ -175,7 +175,7 @@ const QuestionForm = ({ question, isEdit = false }: Params) => {
                 Be specific and imagine you&apos;re asking a question to another
                 person.
               </FormDescription>
-              <FormMessage />
+              <FormMessage className="text-red-600" />
             </FormItem>
           )}
         />

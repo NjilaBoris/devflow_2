@@ -128,7 +128,7 @@ const ProfilePage = async ({ params, searchParams }: RouteParams) => {
         <div className="flex justify-end max-sm:mb-5 max-sm:w-full sm:mt-3">
           {loggedInUser?.user?.id === id && (
             <Link href="/profile/edit">
-              <Button className="paragraph-medium btn-secondary text-dark300_light900 min-h-12 min-w-44 px-4 py-3">
+              <Button className="paragraph-medium cursor-pointer btn-secondary text-dark300_light900 min-h-12 min-w-44 px-4 py-3">
                 Edit Profile
               </Button>
             </Link>
