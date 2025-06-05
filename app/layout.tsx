@@ -41,10 +41,10 @@ export const metadata = {
   ],
 
   authors: [
-    { name: "Adrian" },
+    { name: "Boris" },
     { name: "Dev Overflow Team", url: "https://devoverflow.dev/team" },
   ],
-  creator: "Adrian",
+  creator: "Boris",
   publisher: "Dev Overflow",
 
   formatDetection: {
