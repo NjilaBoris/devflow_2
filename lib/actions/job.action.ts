@@ -18,7 +18,9 @@ export const fetchJobs = async (filters: JobFilterParams) => {
   const { query, page } = filters;
 
   const headers = {
-    "X-RapidAPI-Key": process.env.NEXT_PUBLIC_RAPID_API_KEY ?? "",
+    "X-RapidAPI-Key":
+      process.env.NEXT_PUBLIC_RAPID_API_KEY ??
+      "a9b3653dcdmsh8f7d026f4950c1dp1665dfjsn3a115cd387b4",
     "X-RapidAPI-Host": "jsearch.p.rapidapi.com",
   };
 
